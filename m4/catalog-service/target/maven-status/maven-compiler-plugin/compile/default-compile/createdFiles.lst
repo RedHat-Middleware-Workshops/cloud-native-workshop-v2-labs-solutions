@@ -1,0 +1,9 @@
+com/redhat/cloudnative/client/InventoryClient$InventoryClientFallbackFactory$1.class
+com/redhat/cloudnative/client/InventoryClient.class
+com/redhat/cloudnative/service/ProductRepository.class
+com/redhat/cloudnative/RestApplication.class
+com/redhat/cloudnative/service/CatalogEndpoint.class
+com/redhat/cloudnative/model/Product.class
+com/redhat/cloudnative/model/Inventory.class
+com/redhat/cloudnative/service/CatalogService.class
+com/redhat/cloudnative/client/InventoryClient$InventoryClientFallbackFactory.class
