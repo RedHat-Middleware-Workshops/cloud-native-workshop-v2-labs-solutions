@@ -1,7 +1,0 @@
-/Users/doh/redhat-middleware-workshops/cloud-native-workshop-v2-labs-solutions/m4/catalog-service/src/main/java/com/redhat/cloudnative/model/Inventory.java
-/Users/doh/redhat-middleware-workshops/cloud-native-workshop-v2-labs-solutions/m4/catalog-service/src/main/java/com/redhat/cloudnative/model/Product.java
-/Users/doh/redhat-middleware-workshops/cloud-native-workshop-v2-labs-solutions/m4/catalog-service/src/main/java/com/redhat/cloudnative/client/InventoryClient.java
-/Users/doh/redhat-middleware-workshops/cloud-native-workshop-v2-labs-solutions/m4/catalog-service/src/main/java/com/redhat/cloudnative/RestApplication.java
-/Users/doh/redhat-middleware-workshops/cloud-native-workshop-v2-labs-solutions/m4/catalog-service/src/main/java/com/redhat/cloudnative/service/CatalogEndpoint.java
-/Users/doh/redhat-middleware-workshops/cloud-native-workshop-v2-labs-solutions/m4/catalog-service/src/main/java/com/redhat/cloudnative/service/ProductRepository.java
-/Users/doh/redhat-middleware-workshops/cloud-native-workshop-v2-labs-solutions/m4/catalog-service/src/main/java/com/redhat/cloudnative/service/CatalogService.java
