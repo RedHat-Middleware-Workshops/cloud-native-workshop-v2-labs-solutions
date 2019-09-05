@@ -6,4 +6,8 @@
 
 cd coolstore-ui
 
-# To-be
+npm install --save-dev nodeshift
+
+npm run nodeshift
+
+oc expose svc/coolstore-ui

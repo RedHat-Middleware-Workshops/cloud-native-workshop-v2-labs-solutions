@@ -10,7 +10,7 @@ cd cart-service
 # mvn clean package -DskipTests -Dservice.profile=prod
 # rm -rf target/binary && mkdir -p target/binary && cp -r target/*runner.jar target/lib target/binary
 
-oc new-app cart-cache -p APPLICATION_USER=developer -p APPLICATION_PASSWORD=developer -p NUMBER_OF_INSTANCES=3 -p REPLICATION_FACTOR=2
+oc new-app jboss/infinispan-server:10.0.0.Beta3 --name=datagrid-service
 
 oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=cart-service -l app=cart-service
 sleep 5

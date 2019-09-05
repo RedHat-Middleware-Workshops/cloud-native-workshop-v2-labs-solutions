@@ -12,13 +12,13 @@ cd order-service
 
 oc new-app --docker-image mongo:4.0 --name=order-database
 
-oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=order-service -l app=order-service
+oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=order -l app=order
 sleep 5
 
-oc start-build order-service --from-dir=target/binary --follow
+oc start-build order --from-dir=target/binary --follow
 sleep 5
 
-oc new-app order-service
+oc new-app order
 sleep 5
 
-oc expose service order-service
+oc expose service order

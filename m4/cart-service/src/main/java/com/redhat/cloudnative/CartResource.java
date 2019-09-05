@@ -23,7 +23,7 @@ import io.quarkus.runtime.StartupEvent;
 import java.util.Properties;
 
 
-@Path("/cart")
+@Path("/api/cart")
 public class CartResource {
 
     private static final Logger log = LoggerFactory.getLogger(CartResource.class);

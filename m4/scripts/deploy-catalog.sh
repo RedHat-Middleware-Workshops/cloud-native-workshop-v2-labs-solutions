@@ -15,13 +15,13 @@ oc new-app -e POSTGRESQL_USER=catalog \
              openshift/postgresql:10 \
              --name=catalog-database
     
-oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=catalog-service -l app=catalog-service
+oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=catalog -l app=catalog
 sleep 5
 
-oc start-build catalog-service --from-file=target/catalog-1.0.0-SNAPSHOT.jar --follow
+oc start-build catalog --from-file=target/catalog-1.0.0-SNAPSHOT.jar --follow
 sleep 5
 
-oc new-app catalog-service
+oc new-app catalog
 sleep 5
 
-oc expose service catalog-service
+oc expose service catalog
