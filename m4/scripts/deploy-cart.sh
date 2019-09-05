@@ -12,13 +12,13 @@ cd cart-service
 
 oc new-app jboss/infinispan-server:10.0.0.Beta3 --name=datagrid-service
 
-oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=cart-service -l app=cart-service
+oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=cart -l app=cart
 sleep 5
 
-oc start-build cart-service --from-dir=target/binary --follow
+oc start-build cart --from-dir=target/binary --follow
 sleep 5
 
-oc new-app cart-service
+oc new-app cart
 sleep 5
 
-oc expose service cart-service
+oc expose service cart
