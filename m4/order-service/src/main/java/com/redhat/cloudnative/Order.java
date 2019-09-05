@@ -10,8 +10,7 @@ public class Order {
 	private Double shippingFee;
 	private Double shippingDiscount;
 	private String id;
-
-
+	private String orderStatus;
 
 	public Order() {}
 
@@ -78,6 +77,14 @@ public class Order {
 
 	public String getId() {
 		return id;
+	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 
 }

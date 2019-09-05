@@ -17,7 +17,8 @@ import javax.ws.rs.core.MediaType;
 public class OrderResource {
 
     // TODO: Inject OrderService here
-    @Inject OrderService orderService;
+    @Inject 
+    OrderService orderService;
 
     // TODO: Add list(), add() methods here
     @GET

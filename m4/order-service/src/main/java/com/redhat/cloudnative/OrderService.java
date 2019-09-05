@@ -60,6 +60,8 @@ public class OrderService {
         
     }
 
+    public void update(Order order)
+
     private MongoCollection getCollection(){
         return mongoClient.getDatabase("order").getCollection("order");
     }
