@@ -16,7 +16,7 @@ public class KafkaOrdersConsumer {
     @Inject
     OrderService orderService;
 
-    @Incoming("payments")
+    @Incoming("orders")
     public CompletionStage<Void> onMessage(KafkaMessage<String, String> message)
             throws IOException {
         //orderService.add(Json.decodeValue(message.getPayload(), Order.class));
