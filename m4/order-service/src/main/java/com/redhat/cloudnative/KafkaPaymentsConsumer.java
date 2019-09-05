@@ -11,10 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@ApplicationScoped
-public class KafkaEventConsumer {
+public class KafkaPaymentsConsumer {
 
-    private static final Logger LOG = LoggerFactory.getLogger(KafkaEventConsumer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(KafkaPaymentsConsumer.class);
 
     @Incoming("payments")
     public CompletionStage<Void> onMessage(KafkaMessage<String, String> message)
@@ -23,4 +22,5 @@ public class KafkaEventConsumer {
         LOG.info("Kafka message with value = {} arrived", message.getPayload());
         return message.ack();
     }
+
 }

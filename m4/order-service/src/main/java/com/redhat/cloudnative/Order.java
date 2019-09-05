@@ -11,6 +11,8 @@ public class Order {
 	private Double shippingDiscount;
 	private String id;
 
+
+
 	public Order() {}
 
 	public String getCustomerName() {
