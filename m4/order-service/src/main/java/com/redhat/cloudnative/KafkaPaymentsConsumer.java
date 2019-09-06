@@ -4,6 +4,7 @@ import io.smallrye.reactive.messaging.kafka.KafkaMessage;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
@@ -25,15 +26,9 @@ public class KafkaPaymentsConsumer {
 
         JsonObject payload = message.getPayload();
         String orderId = payload.getString("orderId");
-        String paymentId = payload.getString("paymentId");
-        String remarks = payload.getString("remarks");
-        String status = payload.getString("status");
 
         if ( "COMPLETED".equals(status) ) {
-
-            // Bson filter = Filters.eq("id", orderId);
-            // orderService.update(order, filter);
-
+            orderService.updateStatus(orderId);
         }
 
         LOG.info("Kafka message with value = {} arrived", message.getPayload());

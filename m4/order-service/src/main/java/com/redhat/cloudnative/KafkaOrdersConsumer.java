@@ -11,11 +11,12 @@ import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
 import io.vertx.core.json.JsonObject;
+import java.nio.Buffer;
 
 public class KafkaOrdersConsumer {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaOrdersConsumer.class);
-    private static final String[] RANDOM_NAMES = {"Sven Karlsson","Johan Andersson","Karl Svensson","Anders Johansson","Stefan Olson","Martin Ericsson"};
+    private static final String[] RANDOM_NAMES = {"Daniel Oh","Johan Andersson","Karl Svensson","Anders Johansson","Stefan Olson","Martin Ericsson"};
     private static final String[] RANDOM_EMAILS = {"sven@gmail.com","johan@gmail.com","karl@gmail.com","anders@gmail.com","stefan@gmail.com","martin@gmail.com"};
 
     @Inject 

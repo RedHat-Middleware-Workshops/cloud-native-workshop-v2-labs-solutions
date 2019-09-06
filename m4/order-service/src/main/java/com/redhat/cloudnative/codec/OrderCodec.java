@@ -25,9 +25,12 @@ public class OrderCodec implements CollectibleCodec<Order> {
         doc.put("customerName", Order.getCustomerName());
         doc.put("customerEmail", Order.getCustomerEmail());
         doc.put("orderValue", Order.getOrderValue());
+        doc.put("retailPrice", Order.getRetailPrice());
         doc.put("discount", Order.getDiscount());
         doc.put("shippingFee", Order.getShippingFee());
         doc.put("shippingDiscount", Order.getShippingDiscount());
+        doc.put("id", Order.getId());
+        doc.put("orderStatus", Order.getOrderStatus());
         documentCodec.encode(writer, doc, encoderContext);
     }
 
@@ -68,6 +71,7 @@ public class OrderCodec implements CollectibleCodec<Order> {
         order.setDiscount(document.getDouble("discount"));
         order.setShippingFee(document.getDouble("shippingFee"));
         order.setShippingDiscount(document.getDouble("shippingDiscount"));
+        order.setOrderStatus(document.getString("orderStatus"));
         return order;
     }
     
