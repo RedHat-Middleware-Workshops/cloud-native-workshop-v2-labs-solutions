@@ -36,9 +36,9 @@ public class OrderResource {
     }
 
     @GET
-    @Path("/{orderId}")
-    public List<Order> updateStatus(@PathParam("orderId") String orderId) {
-        orderService.updateStatus(orderId);
+    @Path("/{orderId}/{status}")
+    public List<Order> updateStatus(@PathParam("orderId") String orderId, @PathParam("status") String status) {
+        orderService.updateStatus(orderId, status);
         return list();
     }
 

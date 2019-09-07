@@ -22,15 +22,13 @@ public class OrderCodec implements CollectibleCodec<Order> {
     @Override
     public void encode(BsonWriter writer, Order Order, EncoderContext encoderContext) {
         Document doc = new Document();
-        doc.put("customerName", Order.getCustomerName());
-        doc.put("customerEmail", Order.getCustomerEmail());
-        doc.put("orderValue", Order.getOrderValue());
-        doc.put("retailPrice", Order.getRetailPrice());
-        doc.put("discount", Order.getDiscount());
-        doc.put("shippingFee", Order.getShippingFee());
-        doc.put("shippingDiscount", Order.getShippingDiscount());
         doc.put("id", Order.getId());
-        doc.put("orderStatus", Order.getOrderStatus());
+        doc.put("name", Order.getName());
+        doc.put("total", Order.getTotal());
+        doc.put("ccNumber", Order.getCcNumber());
+        doc.put("ccExp", Order.getCcExp());
+        doc.put("billingAddress", Order.getBillingAddress());
+        doc.put("status", Order.getStatus());
         documentCodec.encode(writer, doc, encoderContext);
     }
 
@@ -64,14 +62,12 @@ public class OrderCodec implements CollectibleCodec<Order> {
         if (document.getString("id") != null) {
             order.setId(document.getString("id"));
         }
-        order.setCustomerName(document.getString("customerName"));
-        order.setCustomerEmail(document.getString("customerEmail"));
-        order.setOrderValue(document.getDouble("orderValue"));
-        order.setRetailPrice(document.getDouble("retailPrice"));
-        order.setDiscount(document.getDouble("discount"));
-        order.setShippingFee(document.getDouble("shippingFee"));
-        order.setShippingDiscount(document.getDouble("shippingDiscount"));
-        order.setOrderStatus(document.getString("orderStatus"));
+        order.setName(document.getString("name"));
+        order.setTotal(document.getString("total"));
+        order.setCcNumber(document.getString("ccNumber"));
+        order.setCcExp(document.getString("ccExp"));
+        order.setBillingAddress(document.getString("billingAddress"));
+        order.setStatus(document.getString("status"));
         return order;
     }
     
