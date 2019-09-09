@@ -42,14 +42,14 @@ public class KafkaOrdersConsumer {
         */
 
         // TODO: Add to Orders        
-        JsonObject payload = new JsonObject(message.getPayload());
+        JsonObject orders = new JsonObject(message.getPayload());
         Order order = new Order();
-        order.setId(payload.getString("orderId"));
-        order.setName(payload.getString("name"));
-        order.setTotal(payload.getString("total"));       
-        order.setCcNumber(payload.getJsonObject("creditCard").getString("number"));
-        order.setCcExp(payload.getJsonObject("creditCard").getString("expiration"));
-        order.setBillingAddress(payload.getString("billingAddress"));
+        order.setId(orders.getString("orderId"));
+        order.setName(orders.getString("name"));
+        order.setTotal(orders.getString("total"));       
+        order.setCcNumber(orders.getJsonObject("creditCard").getString("number"));
+        order.setCcExp(orders.getJsonObject("creditCard").getString("expiration"));
+        order.setBillingAddress(orders.getString("billingAddress"));
         order.setStatus("PROCESSING");
         orderService.add(order);
         
