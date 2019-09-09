@@ -28,7 +28,7 @@ public class CartResource {
 
     private static final Logger log = LoggerFactory.getLogger(CartResource.class);
 
-
+    // TODO: Add annotation of orders messaging configuration here
     @ConfigProperty(name = "mp.messaging.outgoing.orders.bootstrap.servers")
     public String bootstrapServers;
 
@@ -100,6 +100,7 @@ public class CartResource {
         log.info("Sent message: " + Json.encode(order));
     }
 
+    // TODO: Add KafkaProducer method here
     public void init(@Observes StartupEvent ev) {
         Properties props = new Properties();
 
