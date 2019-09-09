@@ -1,5 +1,7 @@
 package com.redhat.cloudnative.model;
 
+import io.vertx.core.json.Json;
+
 import java.util.Objects;
 
 public class ShoppingCartItem {
@@ -54,9 +56,8 @@ public class ShoppingCartItem {
 
     @Override
     public String toString() {
-        return "ShoppingCartItem [price=" + price + ", quantity=" + quantity
-                + ", promoSavings=" + promoSavings + ", product=" + product
-                + "]";
+        return Json.encode(this);
     }
+
 
 }

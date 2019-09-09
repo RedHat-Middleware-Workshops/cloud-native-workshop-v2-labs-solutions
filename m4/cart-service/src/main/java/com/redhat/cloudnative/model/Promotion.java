@@ -1,5 +1,7 @@
 package com.redhat.cloudnative.model;
 
+import io.vertx.core.json.Json;
+
 import java.util.Objects;
 
 public class Promotion {
@@ -36,9 +38,9 @@ public class Promotion {
 
     @Override
     public String toString() {
-        return "Promotion [itemId=" + itemId + ", percentOff=" + percentOff
-                + "]";
+        return Json.encode(this);
     }
+
 
 
 }
