@@ -9,6 +9,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.PathParam;
+
+// import com.redhat.cloudnative.CodecOrderService;
 
 // TODO: Add JAX-RS annotations here
 @Path("/api/orders")
@@ -17,9 +20,10 @@ import javax.ws.rs.core.MediaType;
 public class OrderResource {
 
     // TODO: Inject OrderService here
-    @Inject OrderService orderService;
+    @Inject 
+    OrderService orderService;
 
-    // TODO: Add list(), add() methods here
+    // TODO: Add list(), add(), updateStatus() methods here
     @GET
     public List<Order> list() {
         return orderService.list();
@@ -28,6 +32,13 @@ public class OrderResource {
     @POST
     public List<Order> add(Order order) {
         orderService.add(order);
+        return list();
+    }
+
+    @GET
+    @Path("/{orderId}/{status}")
+    public List<Order> updateStatus(@PathParam("orderId") String orderId, @PathParam("status") String status) {
+        orderService.updateStatus(orderId, status);
         return list();
     }
 
