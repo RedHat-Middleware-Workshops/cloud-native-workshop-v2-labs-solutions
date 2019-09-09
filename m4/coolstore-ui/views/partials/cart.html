@@ -16,7 +16,7 @@
 							      		alt="{{item.product.name}}">
 							  </div>
 							  <div class="media-body">
-
+							  
 							    <h2 class="media-heading">{{item.product.name}}</h2>
 							    <div class="p-t-8">
 							    	<span class="label label-default">Quantity: {{item.quantity}}</span>
@@ -54,7 +54,7 @@
 			</h2>
 		</div>
 		<div class="panel-footer">
-			<button ng-if="ssoEnabled() && isLoggedIn()" ng-disabled="cart.shoppingCartItemList.length <= 0"
+			<button
 				class="btn btn-primary btn-lg" data-toggle="modal"
 				data-target="#checkoutModal" type="button">Checkout</button>
 
@@ -82,14 +82,83 @@
 				<h4 class="modal-title" id="myModalLabel">Final Order Summary</h4>
 			</div>
 			<div class="modal-body">
-				<h1>Thank you for your order!</h1>
+				<h1>Thank you for shopping at the Coolstuff Store!</h1>
 				<p>
 					Your order total of <strong>{{cart.cartTotal | currency}}</strong>
 					will be processed when you click Checkout.
 				</p>
+				<p>
+						{{check=false}}
+					<div class="panel-body">
+					<form novalidate name="paymentForm">
+					<input
+					type="text"
+					name="creditCard"
+					class="clearfix"
+					ng-model="ccinfo.number"
+					required
+					data-credit-card-type
+					data-ng-pattern="/^[0-9]+$/"
+					data-ng-minlength="15"
+					maxlength="19"
+					placeholder="Card Number" >{{ccinfo.type}}
+				  <br/>
+				  <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+					<li ng-show="paymentForm.creditCard.$error.minlength">Credit card must be 15-19 digits</li>
+					<li ng-show="paymentForm.creditCard.$error.pattern">Credit card must consist of only numbers</li>
+					<li ng-show="paymentForm.creditCard.$error.invalid">Credit card must be a valid Amex, Visa, Discover, or Master Card</li>
+					<li ng-show="paymentForm.creditCard.$error.required">Credit card required</li>
+				  </ul>
+				  <input
+					type="text"
+					name="securityCode"
+					class="clearfix"
+					ng-model="ccinfo.securityCode"
+					placeholder="CVC"
+					required
+					data-ng-pattern="/^[0-9]+$/"
+					data-ng-minlength="3"
+					maxlength="4">
+				  <br/>
+				  <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+					<li ng-show="paymentForm.securityCode.$error.pattern">Security code must contain only numbers</li>
+					<li ng-show="paymentForm.securityCode.$error.minlength">Security code must be 3-4 digits</li>
+					<li ng-show="paymentForm.securityCode.$error.required">Security code required</li>
+				  </ul>
+				  <select ng-model="ccinfo.month" name="month" data-card-expiration required>
+					<option disabled selected value="">Month</option>
+					<option ng-repeat="month in [01,02,03,04,05,06,07,08,09,10,11,12]">{{month}}</li>
+				  </select>
+				  <br/>
+				  <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+					<li ng-show="paymentForm.month.$error.required">Expiration month required</li>
+				  </ul>
+				  <select ng-model="ccinfo.year" name="year" required>
+					<option disabled selected value="">Year</option>
+					<option ng-repeat="year in [19,20,21,22,23,24,25,26,27,28]">{{year}}</li>
+				  </select>
+				  <br/>
+				  <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+					<li ng-show="paymentForm.year.$error.required">Expiration year required</li>
+					<li ng-show="paymentForm.month.$error.invalid">Provided expiration date is invalid</li>
+				  </ul>
+
+				  <input
+				  type="text"
+				  name="shippingAddress"
+				  class="col-sm-4 ng-scope"
+				  ng-model="shipping.address"
+				  required
+				  data-credit-card-type
+				  placeholder="Shipping Address" >
+				  <ul ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+						<li ng-show="paymentForm.billingAddress.$error.required">Shipping address is required</li>
+					  </ul>
+				  <button ng-click="paymentForm.submitAttempt=true;save(ccinfo)" class="btn btn-default btn-lg" type="submit">Submit Order</button>
+				</p>
 			</div>
 			<div class="modal-footer">
-				<a ng-click="checkout()" data-dismiss="modal"
+				<a ng-if="paymentForm.$valid" ng-click="checkout(paymentForm)" data-dismiss="modal"
 					class="btn btn-primary btn-lg">Checkout</a>
 				<a data-dismiss="modal"
 					class="btn btn-default btn-lg">Cancel</a>
