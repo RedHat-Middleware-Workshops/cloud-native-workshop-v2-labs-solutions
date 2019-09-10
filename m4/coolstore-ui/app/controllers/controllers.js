@@ -50,7 +50,7 @@ angular.module('app')
         ['$scope', '$http', 'Notifications', 'cart', 'Auth',
             function ($scope, $http, Notifications, cart, $auth) {
 
-                function reset() {
+                 function reset() {
                     $scope.cart = cart.getCart();
                     $scope.items = $scope.cart.shoppingCartItemList;
 
@@ -96,6 +96,14 @@ angular.module('app')
                     cart.reset();
                 });
 
+                $scope.checkout_withBilling = function (ccinfo) {
+                    cart.checkout_withBilling(ccinfo).then(function (cartData) {
+                        }, function (err) {
+                            Notifications.error("Error checking out: " + err.statusText);
+                        });
+                   };
+
+                // DEPRECATED: now use checkout_withBilling(ccinfo)
                 $scope.checkout = function () {
                     cart.checkout().then(function (cartData) {
                     }, function (err) {
