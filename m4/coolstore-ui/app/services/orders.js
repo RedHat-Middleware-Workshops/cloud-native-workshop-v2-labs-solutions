@@ -2,7 +2,7 @@
 
 angular.module("app")
 
-.factory('orders', ['$http', '$q', 'COOLSTORE_CONFIG', 'Auth', '$location', $interval(function($http, $q, COOLSTORE_CONFIG, $auth, $location) {
+.factory('orders', ['$http', '$q', 'COOLSTORE_CONFIG', 'Auth', '$location', function($http, $q, COOLSTORE_CONFIG, $auth, $location) {
     var factory = {}, orders,baseUrl;
 
 	baseUrl = $location.protocol() + '://orders-' + COOLSTORE_CONFIG.OCP_NAMESPACE + '.' + $location.host().replace(/^.*?\.(.*)/g,"$1") + '/api/orders';
@@ -23,5 +23,6 @@ angular.module("app")
 		return deferred.promise;
     };
 
-    return factory;
-}), 2000]);
+	return factory;
+
+}]);
