@@ -13,7 +13,7 @@ public class CORSProvider implements Feature {
     public boolean configure(FeatureContext context) {
         CorsFilter filter = new CorsFilter();
         filter.getAllowedOrigins().add("*");
-        filter.setAllowedMethods("GET, POST, OPTIONS, HEAD");
+        filter.setAllowedMethods("GET, POST, DELETE, OPTIONS, HEAD");
         filter.setAllowedHeaders("accept, content-type, origin");
         context.register(filter);
         return true;
