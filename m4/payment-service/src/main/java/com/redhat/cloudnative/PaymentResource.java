@@ -1,6 +1,8 @@
 package com.redhat.cloudnative;
 
+import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.CompletionStage;
 
 import javax.enterprise.event.Observes;
 import javax.ws.rs.Consumes;
@@ -13,10 +15,12 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.quarkus.runtime.StartupEvent;
+import io.smallrye.reactive.messaging.kafka.KafkaMessage;
 import io.vertx.core.json.JsonObject;
 
 @Path("/")
@@ -104,7 +108,7 @@ public class PaymentResource {
         props.put("bootstrap.servers", bootstrapServers);
         props.put("value.serializer", paymentsTopicValueSerializer);
         props.put("key.serializer", paymentsTopicKeySerializer);
-        producer = new KafkaProducer<String, String>(props);
+        producer = new KafkaProducer<>(props);
     }
 
 }
