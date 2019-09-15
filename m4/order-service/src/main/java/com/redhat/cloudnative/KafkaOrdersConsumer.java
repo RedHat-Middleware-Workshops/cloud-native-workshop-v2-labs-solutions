@@ -1,16 +1,19 @@
 package com.redhat.cloudnative;
 
-import io.smallrye.reactive.messaging.kafka.KafkaMessage;
+import java.io.IOException;
+import java.util.concurrent.CompletionStage;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.concurrent.CompletionStage;
-
-import javax.inject.Inject;
+import io.smallrye.reactive.messaging.kafka.KafkaMessage;
 import io.vertx.core.json.JsonObject;
 
+@ApplicationScoped
 public class KafkaOrdersConsumer {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaOrdersConsumer.class);
