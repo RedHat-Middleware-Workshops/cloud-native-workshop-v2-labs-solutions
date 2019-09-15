@@ -18,7 +18,7 @@ public class KafkaPaymentsConsumer {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaPaymentsConsumer.class);
 
-    @Inject 
+    @Inject
     OrderService orderService;
 
     @Incoming("payments")
@@ -33,10 +33,10 @@ public class KafkaPaymentsConsumer {
         "status": "COMPLETED" (or possibly "FAILED")
         }
         */
+        LOG.info("Kafka payments message with value = {} arrived", message.getPayload());
         JsonObject payments = new JsonObject(message.getPayload());
         orderService.updateStatus(payments.getString("orderId"), payments.getString("status"));
 
-        LOG.info("Kafka message with value = {} arrived", message.getPayload());
         return message.ack();
     }
 

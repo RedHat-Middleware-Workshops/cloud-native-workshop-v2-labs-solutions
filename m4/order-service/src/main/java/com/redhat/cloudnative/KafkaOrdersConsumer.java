@@ -17,8 +17,8 @@ import io.vertx.core.json.JsonObject;
 public class KafkaOrdersConsumer {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaOrdersConsumer.class);
-    
-    @Inject 
+
+    @Inject
     OrderService orderService;
 
     @Incoming("orders")
@@ -40,19 +40,20 @@ public class KafkaOrdersConsumer {
         }
         */
 
-        // TODO: Add to Orders        
+        LOG.info("Kafka orders message with value = {} arrived", message.getPayload());
+
+        // TODO: Add to Orders
         JsonObject orders = new JsonObject(message.getPayload());
         Order order = new Order();
         order.setId(orders.getString("orderId"));
         order.setName(orders.getString("name"));
-        order.setTotal(orders.getString("total"));       
+        order.setTotal(orders.getString("total"));
         order.setCcNumber(orders.getJsonObject("creditCard").getString("number"));
         order.setCcExp(orders.getJsonObject("creditCard").getString("expiration"));
         order.setBillingAddress(orders.getString("billingAddress"));
         order.setStatus("PROCESSING");
         orderService.add(order);
-        
-        LOG.info("Kafka message with value = {} arrived", message.getPayload());
+
         return message.ack();
     }
 
