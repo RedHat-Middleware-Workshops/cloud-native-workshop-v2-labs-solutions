@@ -69,7 +69,7 @@ public class PaymentResource {
             log.info("received event: " + cloudEventJson);
             JsonObject event = new JsonObject(cloudEventJson);
             orderId = event.getString("key");
-            Double total = event.getDouble("total");
+            String total = event.getString("total");
             JsonObject ccDetails = event.getJsonObject("creditCard");
             String name = event.getString("name");
 
