@@ -58,4 +58,23 @@ public class KafkaOrdersConsumer {
     }
 
 
+    @Incoming("payments")
+    public CompletionStage<Void> onMessagePayments(KafkaMessage<String, String> message)
+            throws IOException {
+
+        /* example message back to the payments topic:
+        {
+        "orderId": "12321",
+        "paymentId": "2342323",
+        "remarks": "Payment of $232.23 succeeded for Jane G Doe CC details: ...",
+        "status": "COMPLETED" (or possibly "FAILED")
+        }
+        */
+        LOG.info("Kafka orders message with value = {} arrived", message.getPayload());
+        JsonObject payments = new JsonObject(message.getPayload());
+        orderService.updateStatus(payments.getString("orderId"), payments.getString("status"));
+        LOG.info("Update successfull: "+payments);
+        return message.ack();
+    }
+
 }
