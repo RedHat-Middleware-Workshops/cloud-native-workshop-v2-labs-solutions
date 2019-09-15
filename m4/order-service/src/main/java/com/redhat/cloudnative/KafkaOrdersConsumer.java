@@ -1,19 +1,15 @@
 package com.redhat.cloudnative;
 
 import io.smallrye.reactive.messaging.kafka.KafkaMessage;
-import io.vertx.core.json.Json;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
-
 import io.vertx.core.json.JsonObject;
-import java.nio.Buffer;
 
 public class KafkaOrdersConsumer {
 
