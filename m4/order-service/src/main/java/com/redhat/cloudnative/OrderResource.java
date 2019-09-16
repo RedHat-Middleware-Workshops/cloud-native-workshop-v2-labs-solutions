@@ -11,17 +11,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 
-// import com.redhat.cloudnative.CodecOrderService;
-
 // TODO: Add JAX-RS annotations here
 @Path("/api/orders")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+
 public class OrderResource {
 
     // TODO: Inject OrderService here
-    @Inject 
-    OrderService orderService;
+    @Inject OrderService orderService;
 
     // TODO: Add list(), add(), updateStatus() methods here
     @GET

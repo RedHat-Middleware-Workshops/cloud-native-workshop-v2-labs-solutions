@@ -45,5 +45,4 @@ public class ProductMarshaller implements MessageMarshaller<Product> {
         return "coolstore.Product";
     }
 
-
 }

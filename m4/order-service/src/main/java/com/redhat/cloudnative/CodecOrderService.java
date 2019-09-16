@@ -36,4 +36,5 @@ public class CodecOrderService {
     private MongoCollection<Order> getCollection(){
         return mongoClient.getDatabase("order").getCollection("order", Order.class);
     }
+
 }

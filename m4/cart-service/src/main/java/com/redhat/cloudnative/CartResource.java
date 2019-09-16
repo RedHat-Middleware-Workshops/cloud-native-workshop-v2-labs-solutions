@@ -46,13 +46,15 @@ public class CartResource {
     @Inject
     ShoppingCartService shoppingCartService;
 
+    // TODO ADD getCart method
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{cartId}")
     @Operation(summary = "get the contents of cart by cartId")
-    public ShoppingCart getCart(@PathParam("cartId") String cartId) {
+   public ShoppingCart getCart(@PathParam("cartId") String cartId) {
         return shoppingCartService.getShoppingCart(cartId);
     }
+
 
     @POST
     @Path("/{cartId}/{itemId}/{quantity}")
@@ -93,14 +95,14 @@ public class CartResource {
         return shoppingCartService.checkout(cartId);
     }
 
+    // TODO ADD for KAFKA
     private void sendOrder(Order order, String cartId) {
-        order.setKey(cartId);
         order.setTotal(shoppingCartService.getShoppingCart(cartId).getCartTotal() + "");
         producer.send(new ProducerRecord<String, String>(ordersTopic, Json.encode(order)));
         log.info("Sent message: " + Json.encode(order));
     }
 
-    // TODO: Add KafkaProducer method here
+    // TODO ADD for KAFKA
     public void init(@Observes StartupEvent ev) {
         Properties props = new Properties();
 

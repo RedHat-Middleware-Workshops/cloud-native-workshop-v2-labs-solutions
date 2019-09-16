@@ -59,6 +59,9 @@ public class Producers {
         return new JsonParser();
     }
 
+    // TODO Add getCache
+
+    // TODO add getConfigBuilder
     @Produces
     RemoteCache<String, ShoppingCart> getCache() throws IOException {
 

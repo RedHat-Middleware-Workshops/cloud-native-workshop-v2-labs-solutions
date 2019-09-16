@@ -19,6 +19,7 @@ message ShoppingCartItem {
 }
 
 
+// TODO ADD Product
 message Product {
   required string itemId = 1;
   required string name = 2;

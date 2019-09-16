@@ -9,10 +9,12 @@ public class OrderCodecProvider implements CodecProvider {
 
     // TODO: Add Codec get method here
     @Override
-    public <T> Codec<T> get(Class<T> clazz, CodecRegistry registry) {
-        if (clazz == Order.class) {
-            return (Codec<T>) new OrderCodec();
-        }
-        return null;
-    }    
+public <T> Codec<T> get(Class<T> clazz, CodecRegistry registry) {
+    if (clazz == Order.class) {
+        return (Codec<T>) new OrderCodec();
+    }
+    return null;
+}
+
+
 }
