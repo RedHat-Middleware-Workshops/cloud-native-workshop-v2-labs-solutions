@@ -80,12 +80,41 @@
             <artifactId>json</artifactId>
             <version>20180813</version>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.6</version>
+        </dependency>
 
 <!-- TODO: Add web (tomcat) dependency here -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
 <!-- TODO: Add data jpa dependency here -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
 <!-- TODO: Add actuator, feign and hystrix dependency here -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+    
+        <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter-feign</artifactId>
+          <version>1.4.7.RELEASE</version>
+        </dependency>
+    
+        <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter-hystrix</artifactId>
+          <version>1.4.7.RELEASE</version>
+        </dependency>
 
         <!-- Testing -->
         <dependency>
