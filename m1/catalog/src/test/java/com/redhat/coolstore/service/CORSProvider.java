@@ -1,4 +1,4 @@
-package com.redhat.cloudnative;
+package com.redhat.coolstore;
 
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 

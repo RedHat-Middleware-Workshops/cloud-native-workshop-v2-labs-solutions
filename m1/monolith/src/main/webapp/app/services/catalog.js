@@ -15,6 +15,8 @@ angular.module("app")
 		}
 	}
 
+	baseUrl="YOUR_CATALOG_ROUTE_URL/services/products";
+
 	factory.getProducts = function() {
 		var deferred = $q.defer();
         if (products) {
