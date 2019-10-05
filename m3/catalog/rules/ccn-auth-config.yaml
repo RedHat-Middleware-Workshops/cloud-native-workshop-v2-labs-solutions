@@ -1,0 +1,13 @@
+apiVersion: authentication.istio.io/v1alpha1
+kind: Policy
+metadata: 
+  name: auth-policy
+  namespace: userXX-catalog
+spec: 
+  targets:
+  - name: catalog-springboot
+  origins:
+  - jwt:
+      issuer: http://YOUR_SSO_HTTP_ROUTE_URL/auth/realms/istio
+      jwks_uri: http://YOUR_SSO_HTTP_ROUTE_URL/auth/realms/istio/protocol/openid-connect/certs    
+  principalBinding: USE_ORIGIN

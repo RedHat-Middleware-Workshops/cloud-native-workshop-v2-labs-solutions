@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: inventory-fault
+spec:
+  hosts:
+  - 'YOUR_INVENTORY_GATEWAY_URL'
+  gateways:
+  - inventory-gateway
+  http:
+    - fault:
+         abort:
+           httpStatus: 500
+           percentage:
+             value: 50
+      route:
+        - destination:
+            host: inventory-quarkus
+            port:
+              number: 8080
