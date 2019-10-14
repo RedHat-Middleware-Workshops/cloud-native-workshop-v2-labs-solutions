@@ -15,6 +15,8 @@ angular.module("app")
 		}
 	}
 
+	baseUrl="http://REPLACEURL/services/products";
+
 	factory.getProducts = function() {
 		var deferred = $q.defer();
         if (products) {

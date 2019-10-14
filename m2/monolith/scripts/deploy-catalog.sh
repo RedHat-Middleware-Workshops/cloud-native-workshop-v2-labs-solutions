@@ -38,3 +38,6 @@ oc new-app catalog-springboot
 sleep 5
 
 oc expose service catalog-springboot
+
+REPLACEURL="$(oc get route -n $USERXX-catalog | grep catalog | awk '{print $2}')"
+sed -i "s/REPLACEURL/${REPLACEURL}/g" /projects/cloud-native-workshop-v2m2-labs/monolith/src/main/webapp/app/services/catalog.js
