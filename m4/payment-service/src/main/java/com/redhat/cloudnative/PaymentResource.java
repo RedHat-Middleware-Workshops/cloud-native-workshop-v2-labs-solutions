@@ -94,14 +94,14 @@ public class PaymentResource {
     }
 
     // TODO: Add consumer method here
-    @Incoming("orders")
-    public CompletionStage<Void> onMessage(KafkaMessage<String, String> message)
-            throws IOException {
+    // @Incoming("orders")
+    // public CompletionStage<Void> onMessage(KafkaMessage<String, String> message)
+    //         throws IOException {
 
-        log.info("Kafka message with value = {} arrived", message.getPayload());
-        handleCloudEvent(message.getPayload());
-        return message.ack();
-    }
+    //     log.info("Kafka message with value = {} arrived", message.getPayload());
+    //     handleCloudEvent(message.getPayload());
+    //     return message.ack();
+    // }
 
     // TODO: Add init method here
     public void init(@Observes StartupEvent ev) {
