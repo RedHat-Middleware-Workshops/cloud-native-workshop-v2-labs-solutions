@@ -20,11 +20,11 @@ public class CatalogService {
 
     //TODO: Autowire Inventory Client
     @Autowired
-    InventoryClient inventoryClient;
+    private InventoryClient inventoryClient;
 
     public Product read(String id) {
-        Product product = repository.findById(id);       
-        //TODO: Update the quantity for the product by calling the Inventory service       
+        Product product = repository.findById(id);
+        //TODO: Update the quantity for the product by calling the Inventory service
         JSONArray jsonArray = new JSONArray(inventoryClient.getInventoryStatus(product.getItemId()));
         List<String> quantity = IntStream.range(0, jsonArray.length())
             .mapToObj(index -> ((JSONObject)jsonArray.get(index))
@@ -36,16 +36,14 @@ public class CatalogService {
     public List<Product> readAll() {
         List<Product> productList = repository.readAll();
         //TODO: Update the quantity for the products by calling the Inventory service
-        for ( Product p : productList ) {
-            System.out.println("[readAll]id: "+p.getItemId());
-            System.out.println("[readAll]inventoryClient: "+inventoryClient.getInventoryStatus(p.getItemId()));
-            JSONArray jsonArray = new JSONArray(inventoryClient.getInventoryStatus(p.getItemId()));
-            List<String> quantity = IntStream.range(0, jsonArray.length())
-                .mapToObj(index -> ((JSONObject)jsonArray.get(index))
-                .optString("quantity")).collect(Collectors.toList());
-            p.setQuantity(Integer.parseInt(quantity.get(0)));
-        }
-        return productList; 
+        productList.forEach(p -> {
+          JSONArray jsonArray = new JSONArray(this.inventoryClient.getInventoryStatus(p.getItemId()));
+          List<String> quantity = IntStream.range(0, jsonArray.length())
+            .mapToObj(index -> ((JSONObject)jsonArray.get(index))
+            .optString("quantity")).collect(Collectors.toList());
+          p.setQuantity(Integer.parseInt(quantity.get(0)));
+        });
+        return productList;
     }
 
 }

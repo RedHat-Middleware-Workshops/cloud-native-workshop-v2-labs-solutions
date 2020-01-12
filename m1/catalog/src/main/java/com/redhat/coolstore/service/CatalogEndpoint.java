@@ -1,32 +1,28 @@
 package com.redhat.coolstore.service;
 
 import java.util.List;
-
 import com.redhat.coolstore.model.Product;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping("/services")
 public class CatalogEndpoint {
 
-    @Autowired
-    private CatalogService catalogService;
+    private final CatalogService catalogService;
 
-    @ResponseBody
-    @GetMapping("/products")
-    public ResponseEntity<List<Product>> readAll() {
-        return new ResponseEntity<List<Product>>(catalogService.readAll(),HttpStatus.OK);
+    public CatalogEndpoint(CatalogService catalogService) {
+      this.catalogService = catalogService;
     }
 
-    @ResponseBody
+    @GetMapping("/products")
+    public List<Product> readAll() {
+      return this.catalogService.readAll();
+    }
+
     @GetMapping("/product/{id}")
-    public ResponseEntity<Product> read(@PathVariable("id") String id) {
-        return new ResponseEntity<Product>(catalogService.read(id),HttpStatus.OK);
+    public Product read(@PathVariable("id") String id) {
+      return this.catalogService.read(id);
     }
 
 }
