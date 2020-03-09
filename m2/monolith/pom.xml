@@ -68,7 +68,7 @@
                                     <targetPath>WEB-INF</targetPath>
                                 </resource>
                             </webResources>
-                            <outputDirectory>deployments</outputDirectory>
+                            <outputDirectory>${basedir}/deployments</outputDirectory>
                             <warName>ROOT</warName>
                         </configuration>
                     </plugin>

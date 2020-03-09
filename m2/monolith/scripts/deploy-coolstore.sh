@@ -13,9 +13,7 @@ echo Your username is $USERXX
 echo Deploy coolstore project........
 
 oc new-project $USERXX-coolstore-dev
-oc new-app coolstore-monolith-binary-build
+oc new-app coolstore-monolith-binary-build -p USER_ID=$USERXX
 
-cd /projects/cloud-native-workshop-v2m2-labs/monolith/
-mvn clean package -Popenshift
-oc start-build coolstore --from-file=deployments/ROOT.war
-oc rollout status -w dc/coolstore
+mvn clean package -Popenshift -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/monolith/
+oc start-build coolstore --from-file $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/monolith/deployments/ROOT.war

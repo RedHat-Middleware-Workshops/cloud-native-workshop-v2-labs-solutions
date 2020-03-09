@@ -1,10 +1,9 @@
-The CCN Roadshow(Dev Track) Module 2 Labs Solution
+The CCN Roadshow(Dev Track) Module 2 Labs 2019
 ===
+These labs provide templates, generated Java codes, empty configuration for each lab that the workshop attenddees will develop during the roadshow.
+The included Java projects and/or installation files are here:
 
- * Login OpenShift cluster via oc login -u userXX -p openshift https://OCP4_API_URL 
-
- * Run this script:
-
-```
-scripts/deploy-all.sh
-```
+* Catalog - Spring Boot project
+* Inventory - Quarkus project
+* Monolith - JBoss EAP project
+* Monitoring - Multiple monitoring tools such as Prometheus, Grafana, Jaeger
