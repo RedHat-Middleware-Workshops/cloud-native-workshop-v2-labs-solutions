@@ -4,8 +4,8 @@ import java.util.List;
 import com.redhat.coolstore.model.Product;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/services")
 public class CatalogEndpoint {
 
