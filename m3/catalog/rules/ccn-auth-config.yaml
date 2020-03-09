@@ -8,6 +8,6 @@ spec:
   - name: catalog-springboot
   origins:
   - jwt:
-      issuer: http://sso-user3-rhsso.apps.cluster-boston-a877.boston-a877.open.redhat.com/auth/realms/istio
-      jwks_uri: http://sso-user3-rhsso.apps.cluster-boston-a877.boston-a877.open.redhat.com/auth/realms/istio/protocol/openid-connect/certs
+      issuer: http://sso-userXX-rhsso.ROUTE_DOMAIN/auth/realms/istio
+      jwks_uri: http://sso-userXX-rhsso.ROUTE_DOMAIN/auth/realms/istio/protocol/openid-connect/certs
   principalBinding: USE_ORIGIN
