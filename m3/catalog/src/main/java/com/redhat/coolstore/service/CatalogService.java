@@ -43,10 +43,7 @@ public class CatalogService {
                 .optString("quantity")).collect(Collectors.toList());
             p.setQuantity(Integer.parseInt(quantity.get(0)));
         }
-        return productList; 
+        return productList;
     }
-
-    //TODO: Add Callback Factory Component
-
 
 }

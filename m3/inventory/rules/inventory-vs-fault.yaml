@@ -4,7 +4,7 @@ metadata:
   name: inventory-fault
 spec:
   hosts:
-  - 'YOUR_INVENTORY_GATEWAY_URL'
+  - '*'
   gateways:
   - inventory-gateway
   http:
