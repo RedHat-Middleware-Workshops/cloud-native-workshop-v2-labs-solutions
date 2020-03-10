@@ -28,7 +28,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Inject
     @Remote("default")
     RemoteCache<String, ShoppingCart> carts;
-
+    
     @Inject
     PromotionService ps;
 

@@ -22,8 +22,10 @@ import org.slf4j.LoggerFactory;
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.reactive.messaging.kafka.KafkaMessage;
 import io.vertx.core.json.JsonObject;
+import javax.inject.Singleton;
 
 @Path("/")
+@Singleton
 public class PaymentResource {
 
     // TODO: Add Messaging ConfigProperty here
@@ -69,7 +71,6 @@ public class PaymentResource {
              fail(orderId, paymentId, "Unknown error: " + ex.getMessage() + " for payment: " + cloudEventJson);
         }
     }
-
     // TODO: Add pass method here
     private void pass(String orderId, String paymentId, String remarks) {
 
@@ -81,7 +82,6 @@ public class PaymentResource {
         log.info("Sending payment success: " + payload.toString());
         producer.send(new ProducerRecord<String, String>(paymentsTopic, payload.toString()));
     }
-
     // TODO: Add fail method here
     private void fail(String orderId, String paymentId, String remarks) {
         JsonObject payload = new JsonObject();
@@ -92,7 +92,6 @@ public class PaymentResource {
         log.info("Sending payment failure: " + payload.toString());
         producer.send(new ProducerRecord<String, String>(paymentsTopic, payload.toString()));
     }
-
     // TODO: Add consumer method here
     // @Incoming("orders")
     // public CompletionStage<Void> onMessage(KafkaMessage<String, String> message)
@@ -102,7 +101,6 @@ public class PaymentResource {
     //     handleCloudEvent(message.getPayload());
     //     return message.ack();
     // }
-
     // TODO: Add init method here
     public void init(@Observes StartupEvent ev) {
         Properties props = new Properties();

@@ -81,7 +81,7 @@ spec:
       from:
         kind: ImageStreamTag
         name: spring-petclinic:latest
-        namespace: userXX-cloudnative-pipeline
+        namespace: user4-cloudnative-pipeline
     type: ImageChange
 ---
 apiVersion: v1

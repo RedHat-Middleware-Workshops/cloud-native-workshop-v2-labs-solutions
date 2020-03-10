@@ -40,7 +40,6 @@ public class OrderService {
         } finally {
             cursor.close();
         }
-
         return list;
     }
 
@@ -48,14 +47,14 @@ public class OrderService {
 
         // TODO: Add to create a Document based order here
         Document document = new Document()
-        .append("orderId", order.getOrderId())
-        .append("name", order.getName())
-        .append("total", order.getTotal())
-        .append("ccNumber", order.getCcNumber())
-        .append("ccExp", order.getCcExp())
-        .append("billingAddress", order.getBillingAddress())
-        .append("status", order.getStatus());
-getCollection().insertOne(document);
+            .append("orderId", order.getOrderId())
+            .append("name", order.getName())
+            .append("total", order.getTotal())
+            .append("ccNumber", order.getCcNumber())
+            .append("ccExp", order.getCcExp())
+            .append("billingAddress", order.getBillingAddress())
+            .append("status", order.getStatus());
+        getCollection().insertOne(document);
 
     }
 

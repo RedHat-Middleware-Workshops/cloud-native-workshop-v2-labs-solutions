@@ -1,13 +1,12 @@
 package com.redhat.cloudnative.model;
 
-import com.redhat.cloudnative.model.Product;
 import org.infinispan.protostream.MessageMarshaller;
 
 import java.io.IOException;
 
 public class ProductMarshaller implements MessageMarshaller<Product> {
 
-    /**
+    /*
      * Proto file specimen
      * message Product {
      * required string itemId = 1;

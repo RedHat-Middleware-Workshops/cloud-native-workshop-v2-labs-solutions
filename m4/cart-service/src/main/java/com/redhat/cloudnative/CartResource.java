@@ -51,10 +51,9 @@ public class CartResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{cartId}")
     @Operation(summary = "get the contents of cart by cartId")
-   public ShoppingCart getCart(@PathParam("cartId") String cartId) {
+    public ShoppingCart getCart(@PathParam("cartId") String cartId) {
         return shoppingCartService.getShoppingCart(cartId);
     }
-
 
     @POST
     @Path("/{cartId}/{itemId}/{quantity}")
