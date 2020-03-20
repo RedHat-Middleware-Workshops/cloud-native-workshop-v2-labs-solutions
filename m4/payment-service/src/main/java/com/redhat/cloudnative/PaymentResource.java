@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.quarkus.runtime.StartupEvent;
-import io.smallrye.reactive.messaging.kafka.KafkaMessage;
+import io.smallrye.reactive.messaging.kafka.KafkaRecord;
 import io.vertx.core.json.JsonObject;
 import javax.inject.Singleton;
 
@@ -94,7 +94,7 @@ public class PaymentResource {
     }
     // TODO: Add consumer method here
     // @Incoming("orders")
-    // public CompletionStage<Void> onMessage(KafkaMessage<String, String> message)
+    // public CompletionStage<Void> onMessage(KafkaRecord<String, String> message)
     //         throws IOException {
 
     //     log.info("Kafka message with value = {} arrived", message.getPayload());

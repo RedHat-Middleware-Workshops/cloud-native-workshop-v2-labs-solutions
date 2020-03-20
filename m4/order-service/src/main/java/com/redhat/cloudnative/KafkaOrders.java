@@ -1,6 +1,6 @@
 package com.redhat.cloudnative;
 
-import io.smallrye.reactive.messaging.kafka.KafkaMessage;
+import io.smallrye.reactive.messaging.kafka.KafkaRecord;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class KafkaOrders {
     OrderService orderService;
 
     @Incoming("orders")
-    public CompletionStage<Void> onMessage(KafkaMessage<String, String> message)
+    public CompletionStage<Void> onMessage(KafkaRecord<String, String> message)
             throws IOException {
 
         LOG.info("Kafka order message with value = {} arrived", message.getPayload());
@@ -42,7 +42,7 @@ public class KafkaOrders {
     }
 
     @Incoming("payments")
-    public CompletionStage<Void> onMessagePayments(KafkaMessage<String, String> message)
+    public CompletionStage<Void> onMessagePayments(KafkaRecord<String, String> message)
             throws IOException {
 
         LOG.info("Kafka payment message with value = {} arrived", message.getPayload());
