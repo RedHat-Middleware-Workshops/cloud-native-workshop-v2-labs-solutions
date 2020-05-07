@@ -97,7 +97,8 @@ public class CartResource {
     // TODO ADD for KAFKA
     private void sendOrder(Order order, String cartId) {
         order.setTotal(shoppingCartService.getShoppingCart(cartId).getCartTotal() + "");
-        producer.send(new ProducerRecord<String, String>(ordersTopic, Json.encode(order)));
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(ordersTopic, null, null, null, Json.encode(order), new RecordHeaders().add("content-type", "application/json".getBytes()));
+        producer.send(producerRecord);
         log.info("Sent message: " + Json.encode(order));
     }
 
