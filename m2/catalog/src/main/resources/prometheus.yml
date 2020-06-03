@@ -1,0 +1,8 @@
+# Append this to prometheus-config in userXX-monitoring namespace
+# 
+# Replace userXX with your username(i.e. user2)
+
+- job_name: 'spring-boot'
+  metrics_path: '/prometheus'
+  static_configs:
+  - targets:  ['catalog-springboot.userXX-catalog.svc.cluster.local:8080']
