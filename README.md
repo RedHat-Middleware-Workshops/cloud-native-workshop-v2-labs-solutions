@@ -1,6 +1,4 @@
 The CCN Roadshow(Dev Track) All Modules Solution
 ===
 
-This repository includes completed codes, configuration for each module.
-
-Run deploy-all.sh script in m1~m4 dirctory.
+This repo can be used for reference to the code's solution than a magic script to deploy all things completely at one time because you will have some errors in OpenShift runtime if you don't deploy required pods, objects manually.

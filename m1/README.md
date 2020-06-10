@@ -1,10 +1,4 @@
 The CCN Roadshow(Dev Track) Module 1 Labs Solution
 ===
 
- * Login OpenShift cluster via oc login -u userXX -p openshift https://OCP4_API_URL 
-
- * Run this script:
-
-```
-scripts/deploy-all.sh
-```
+This repo can be used for reference to the code's solution than a magic script to deploy all things completely at one time because you will have some errors in OpenShift runtime if you don't deploy required pods, objects manually.
