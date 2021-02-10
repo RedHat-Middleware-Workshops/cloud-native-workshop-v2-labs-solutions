@@ -25,17 +25,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private static final Logger log = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
 
     // TODO Inject RemoteCache
+    @Inject
+    @Remote(CacheService.CART_CACHE)
+    RemoteCache<String, ShoppingCart> carts;
     
-
     @Inject
     PromotionService ps;
 
     @Inject
     ShippingService ss;
 
-
     private Map<String, Product> productMap = new HashMap<>();
-
 
     @Override
     public ShoppingCart getShoppingCart(String cartId) {

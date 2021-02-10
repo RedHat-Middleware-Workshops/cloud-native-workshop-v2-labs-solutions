@@ -44,18 +44,17 @@ public class PaymentResource {
     private Producer<String, String> producer;
 
     public static final Logger log = LoggerFactory.getLogger(PaymentResource.class);
-
     // TODO: Add handleCloudEvent method here
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void handleCloudEvent(String payload) {
+    public void handleCloudEvent(String cloudEventJson) {
         String orderId = "unknown";
         String paymentId = "" + ((int)(Math.floor(Math.random() * 100000)));
 
         try {
-            log.info("received event: " + payload);
-            JsonObject event = new JsonObject(payload);
+            log.info("received event: " + cloudEventJson);
+            JsonObject event = new JsonObject(cloudEventJson);
             orderId = event.getString("orderId");
             String total = event.getString("total");
             JsonObject ccDetails = event.getJsonObject("creditCard");
@@ -69,10 +68,9 @@ public class PaymentResource {
                 pass(orderId, paymentId, "Payment of " + total + " succeeded for " + name + " CC details: " + ccDetails.toString());
             }
         } catch (Exception ex) {
-             fail(orderId, paymentId, "Unknown error: " + ex.getMessage() + " for payment: " + payload);
+             fail(orderId, paymentId, "Unknown error: " + ex.getMessage() + " for payment: " + cloudEventJson);
         }
     }
-
     // TODO: Add pass method here
     private void pass(String orderId, String paymentId, String remarks) {
 
@@ -84,7 +82,6 @@ public class PaymentResource {
         log.info("Sending payment success: " + payload.toString());
         producer.send(new ProducerRecord<String, String>(paymentsTopic, payload.toString()));
     }
-
     // TODO: Add fail method here
     private void fail(String orderId, String paymentId, String remarks) {
         JsonObject payload = new JsonObject();
@@ -95,7 +92,6 @@ public class PaymentResource {
         log.info("Sending payment failure: " + payload.toString());
         producer.send(new ProducerRecord<String, String>(paymentsTopic, payload.toString()));
     }
-
     // TODO: Add consumer method here
     // @Incoming("orders")
     // public CompletionStage<Void> onMessage(KafkaRecord<String, String> message)
@@ -105,7 +101,6 @@ public class PaymentResource {
     //     handleCloudEvent(message.getPayload());
     //     return message.ack();
     // }
-
     // TODO: Add init method here
     public void init(@Observes StartupEvent ev) {
         Properties props = new Properties();
@@ -115,5 +110,4 @@ public class PaymentResource {
         props.put("key.serializer", paymentsTopicKeySerializer);
         producer = new KafkaProducer<String, String>(props);
     }
-
 }
