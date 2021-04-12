@@ -8,6 +8,7 @@ if [ -z "$USERXX" -o "$USERXX" = "userXX" ]
     exit;
 fi
 
+echo "Start deploying all services in Module 1 of CCN DevTrack"
 echo "Deploying Inventory service........"
 
 oc project $USERXX-inventory || oc new-project $USERXX-inventory
@@ -71,7 +72,7 @@ echo "Deployed Catalog service........"
 echo "Deploying Coolstore service........"
 oc project $USERXX-coolstore-dev || oc new-project $USERXX-coolstore-dev
 oc delete dc,deployment,bc,build,svc,route,pod,is --all
-oc delete secret coolstore-secret
+oc get secret coolstore-secret  || oc delete secret coolstore-secret
 
 echo "Waiting 30 seconds to finialize deletion of resources..."
 sleep 30
