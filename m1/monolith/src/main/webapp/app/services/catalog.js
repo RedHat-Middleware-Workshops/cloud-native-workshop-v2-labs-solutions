@@ -15,7 +15,7 @@ angular.module("app")
 		}
 	}
 
-	baseUrl='http://catalog-springboot-{{ USER_ID }}-catalog.{{ ROUTE_SUBDOMAIN}}/services/products';
+	baseUrl="http://REPLACEURL/services/products";
 
 	factory.getProducts = function() {
 		var deferred = $q.defer();
