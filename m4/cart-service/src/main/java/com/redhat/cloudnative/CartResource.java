@@ -3,7 +3,9 @@ package com.redhat.cloudnative;
 import com.redhat.cloudnative.model.order.Order;
 import com.redhat.cloudnative.model.ShoppingCart;
 import com.redhat.cloudnative.service.ShoppingCartService;
+
 import io.vertx.core.json.Json;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
