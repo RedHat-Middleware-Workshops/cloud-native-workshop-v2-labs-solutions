@@ -4,9 +4,9 @@ metadata:
   name: inventory-fault-delay
 spec:
   hosts:
-  - '*'
+  - "REPLAACEURL"
   gateways:
-  - inventory-gateway
+  - userXX-bookinfo/bookinfo-gateway
   http:
     - fault:
          delay:
@@ -15,6 +15,6 @@ spec:
              value: 100
       route:
         - destination:
-            host: inventory-quarkus
+            host: inventory
             port:
               number: 8080

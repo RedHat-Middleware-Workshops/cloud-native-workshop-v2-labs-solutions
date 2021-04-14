@@ -4,9 +4,9 @@ metadata:
   name: inventory-fault
 spec:
   hosts:
-  - '*'
+  - "REPLACEURL"
   gateways:
-  - inventory-gateway
+  - userXX-bookinfo/bookinfo-gateway
   http:
     - fault:
          abort:
@@ -15,6 +15,6 @@ spec:
              value: 50
       route:
         - destination:
-            host: inventory-quarkus
+            host: inventory
             port:
               number: 8080

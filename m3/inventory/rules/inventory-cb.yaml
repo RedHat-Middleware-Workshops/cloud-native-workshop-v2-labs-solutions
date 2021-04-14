@@ -3,7 +3,7 @@ kind: DestinationRule
 metadata:
   name: inventory-cb
 spec:
-  host: inventory-quarkus
+  host: inventory
   trafficPolicy:
     connectionPool:
       tcp:

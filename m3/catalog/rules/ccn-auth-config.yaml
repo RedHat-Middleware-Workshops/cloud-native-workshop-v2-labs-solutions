@@ -1,13 +1,26 @@
-apiVersion: authentication.istio.io/v1alpha1
-kind: Policy
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
 metadata:
-  name: auth-policy
-  namespace: user3-catalog
+  name: calalog-req-auth
+  namespace: userXX-catalog
 spec:
-  targets:
-  - name: catalog-springboot
-  origins:
-  - jwt:
-      issuer: http://sso-userXX-rhsso.ROUTE_DOMAIN/auth/realms/istio
-      jwks_uri: http://sso-userXX-rhsso.ROUTE_DOMAIN/auth/realms/istio/protocol/openid-connect/certs
-  principalBinding: USE_ORIGIN
+  selector:
+    matchLabels:
+      deploymentconfig: catalog-springboot
+  jwtRules:
+  - issuer: http://REPLACEURL/auth/realms/istio
+    jwksUri: http://REPLACEURL/auth/realms/istio/protocol/openid-connect/certs
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: catalog-auth-policy
+  namespace: userXX-catalog
+spec:
+  selector:
+    matchLabels:
+      deploymentconfig: catalog-springboot
+  rules:
+  - from:
+    - source:
+        requestPrincipals: ["*"]
