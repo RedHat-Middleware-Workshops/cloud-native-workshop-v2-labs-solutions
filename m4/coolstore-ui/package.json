@@ -31,7 +31,7 @@
     "node": ">=0.10.10"
   },
   "scripts": {
-    "nodeshift": "nodeshift",
+    "nodeshift": "nodeshift --dockerImage=registry.access.redhat.com/ubi8/nodejs-10",
     "postinstall": "node_modules/.bin/bower install"
   }
 }
