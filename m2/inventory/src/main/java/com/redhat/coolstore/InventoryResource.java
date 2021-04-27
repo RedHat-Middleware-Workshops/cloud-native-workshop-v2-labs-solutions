@@ -17,14 +17,19 @@ import javax.ws.rs.ext.Provider;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import org.eclipse.microprofile.metrics.MetricUnits;
-import org.eclipse.microprofile.metrics.annotation.Counted;
-import org.eclipse.microprofile.metrics.annotation.Timed;
+import java.util.concurrent.TimeUnit;
+import io.micrometer.core.instrument.MeterRegistry;
 
 @Path("/services/inventory")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class InventoryResource {
+
+    private final MeterRegistry registry;
+
+    InventoryResource(MeterRegistry registry) {
+        this.registry = registry;
+    }
 
     @GET
     @Path("/lastletter/{itemId}")
@@ -33,22 +38,22 @@ public class InventoryResource {
         Inventory item = Inventory.find("itemId", itemId).firstResult();
         String location = item.location;
         int len = location.length();
-        String lastLetter = location.substring(len - 1);
+        String lastLetter = location.substring(len-1);
         return lastLetter;
     }
 
     @GET
-    @Counted(name = "performedChecksAll", description = "How many getAll() have been performed.")
-    @Timed(name = "checksTimerAll", description = "A measure of how long it takes to perform the getAll().", unit = MetricUnits.MILLISECONDS)
     public List<Inventory> getAll() {
+        registry.counter("inventory.performedChecksAll.counter").increment();
+        registry.timer("inventory.performedChecksAll.timer").record(3000, TimeUnit.MILLISECONDS);
         return Inventory.listAll();
     }
 
     @GET
-    @Counted(name = "performedChecksAvail", description = "How many getAvailability() have been performed.")
-    @Timed(name = "checksTimerAvail", description = "A measure of how long it takes to perform the getAvailability().", unit = MetricUnits.MILLISECONDS)
     @Path("{itemId}")
     public List<Inventory> getAvailability(@PathParam String itemId) {
+        registry.counter("inventory.performedChecksAvail.counter").increment();
+        registry.timer("inventory.checksTimerAvail.timer").record(3000, TimeUnit.MILLISECONDS);
         return Inventory.<Inventory>streamAll()
         .filter(p -> p.itemId.equals(itemId))
         .collect(Collectors.toList());
