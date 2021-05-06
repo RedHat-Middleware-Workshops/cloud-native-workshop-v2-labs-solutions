@@ -201,17 +201,17 @@ oc create -f $PWD/m4/payment-service/knative/pipeline/pipeline.yaml
 
 tkn pipeline start build-and-deploy \
     -w name=shared-workspace,volumeClaimTemplateFile=$PWD/m4/payment-service/knative/pipeline/persistent_volume_claim.yaml \
-    -p deployment-name=vote-api \
-    -p git-url=http://github.com/openshift-pipelines/vote-api.git \
-    -p git-revision=pipelines-1.3 \
-    -p IMAGE=image-registry.openshift-image-registry.svc:5000/$USERXX-cloudnative-pipeline/vote-api
+    -p deployment-name=pipelines-vote-api \
+    -p git-url=https://github.com/openshift/pipelines-vote-api.git \
+    -p git-revision=pipelines-1.4 \
+    -p IMAGE=image-registry.openshift-image-registry.svc:5000/$USERXX-cloudnative-pipeline/pipelines-vote-api
 
 tkn pipeline start build-and-deploy \
     -w name=shared-workspace,volumeClaimTemplateFile=$PWD/m4/payment-service/knative/pipeline/persistent_volume_claim.yaml \
-    -p deployment-name=vote-ui \
-    -p git-url=http://github.com/openshift-pipelines/vote-ui.git \
-    -p git-revision=pipelines-1.3 \
-    -p IMAGE=image-registry.openshift-image-registry.svc:5000/$USERXX-cloudnative-pipeline/vote-ui
+    -p deployment-name=pipelines-vote-ui \
+    -p git-url=http://github.com/openshift/pipelines-vote-ui.git \
+    -p git-revision=pipelines-1.4 \
+    -p IMAGE=image-registry.openshift-image-registry.svc:5000/$USERXX-cloudnative-pipeline/pipelines-vvote-ui
 echo "Created Cloud-Native CI/CD Pipelines using Tekton........"
 
 echo "Finished deploying all services in Module 4 of CCN DevTrack"
