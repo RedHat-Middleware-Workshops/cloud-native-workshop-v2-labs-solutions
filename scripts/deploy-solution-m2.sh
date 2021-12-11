@@ -164,7 +164,7 @@ data:
         scrape_interval: 10s
         scrape_timeout: 5s
         static_configs:
-        - targets: ['inventory.$USERXX-inventory.svc.cluster.local:8080']
+        - targets: ['inventory.$USERXX-inventory.svc.cluster.local']
 EOF
 
 oc set volume -n $USERXX-monitoring deployment/prometheus --add -t configmap --configmap-name=prometheus-config -m /etc/prometheus/prometheus.yml --sub-path=prometheus.yml && \
