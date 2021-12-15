@@ -5,11 +5,8 @@ import java.util.Properties;
 import java.util.concurrent.CompletionStage;
 
 import javax.enterprise.event.Observes;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -44,10 +41,9 @@ public class PaymentResource {
     private Producer<String, String> producer;
 
     public static final Logger log = LoggerFactory.getLogger(PaymentResource.class);
+
     // TODO: Add handleCloudEvent method here
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public void handleCloudEvent(String cloudEventJson) {
         String orderId = "unknown";
         String paymentId = "" + ((int)(Math.floor(Math.random() * 100000)));
@@ -71,6 +67,7 @@ public class PaymentResource {
              fail(orderId, paymentId, "Unknown error: " + ex.getMessage() + " for payment: " + cloudEventJson);
         }
     }
+
     // TODO: Add pass method here
     private void pass(String orderId, String paymentId, String remarks) {
 
@@ -82,6 +79,7 @@ public class PaymentResource {
         log.info("Sending payment success: " + payload.toString());
         producer.send(new ProducerRecord<String, String>(paymentsTopic, payload.toString()));
     }
+    
     // TODO: Add fail method here
     private void fail(String orderId, String paymentId, String remarks) {
         JsonObject payload = new JsonObject();
@@ -92,6 +90,7 @@ public class PaymentResource {
         log.info("Sending payment failure: " + payload.toString());
         producer.send(new ProducerRecord<String, String>(paymentsTopic, payload.toString()));
     }
+
     // TODO: Add consumer method here
     // @Incoming("orders")
     // public CompletionStage<Void> onMessage(KafkaRecord<String, String> message)
@@ -101,6 +100,7 @@ public class PaymentResource {
     //     handleCloudEvent(message.getPayload());
     //     return message.ack();
     // }
+
     // TODO: Add init method here
     public void init(@Observes StartupEvent ev) {
         Properties props = new Properties();

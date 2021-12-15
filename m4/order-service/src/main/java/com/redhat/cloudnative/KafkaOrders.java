@@ -18,25 +18,22 @@ public class KafkaOrders {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaOrders.class);
 
-    @Inject
-    OrderService orderService;
-
     @Incoming("orders")
     public CompletionStage<Void> onMessage(KafkaRecord<String, String> message)
             throws IOException {
 
         LOG.info("Kafka order message with value = {} arrived", message.getPayload());
 
-        JsonObject orders = new JsonObject(message.getPayload());
-        Order order = new Order();
-        order.setOrderId(orders.getString("orderId"));
-        order.setName(orders.getString("name"));
-        order.setTotal(orders.getString("total"));
-        order.setCcNumber(orders.getJsonObject("creditCard").getString("number"));
-        order.setCcExp(orders.getJsonObject("creditCard").getString("expiration"));
-        order.setBillingAddress(orders.getString("billingAddress"));
-        order.setStatus("PROCESSING");
-        orderService.add(order);
+        JsonObject payload = new JsonObject(message.getPayload());
+        Order newOrder = new Order();
+        newOrder.orderId = payload.getString("orderId");
+        newOrder.name = payload.getString("name");
+        newOrder.total = payload.getString("total");
+        newOrder.ccNumber = payload.getJsonObject("creditCard").getString("number");
+        newOrder.ccExp = payload.getJsonObject("creditCard").getString("expiration");
+        newOrder.billingAddress = payload.getString("billingAddress");
+        newOrder.status = "PROCESSING";
+        newOrder.persist();
 
         return message.ack();
     }
@@ -48,7 +45,10 @@ public class KafkaOrders {
         LOG.info("Kafka payment message with value = {} arrived", message.getPayload());
 
         JsonObject payments = new JsonObject(message.getPayload());
-        orderService.updateStatus(payments.getString("orderId"), payments.getString("status"));
+
+        Order newOrder = Order.findByOrderId(payments.getString("orderId"));
+        newOrder.status = payments.getString("status");
+        newOrder.update();
 
         return message.ack();
     }
