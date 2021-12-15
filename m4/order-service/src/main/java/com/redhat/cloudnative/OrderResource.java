@@ -13,30 +13,29 @@ import javax.ws.rs.PathParam;
 
 // TODO: Add JAX-RS annotations here
 @Path("/api/orders")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class OrderResource {
 
-    // TODO: Inject OrderService here
-    @Inject OrderService orderService;
-
     // TODO: Add list(), add(), updateStatus() methods here
-     @GET
+    @GET
     public List<Order> list() {
-        return orderService.list();
+        return Order.listAll();
     }
 
     @POST
     public List<Order> add(Order order) {
-        orderService.add(order);
+        order.persist();
         return list();
     }
 
     @GET
     @Path("/{orderId}/{status}")
-    public List<Order> updateStatus(@PathParam("orderId") String orderId, @PathParam("status") String status) {
-        orderService.updateStatus(orderId, status);
-        return list();
+    public Order updateStatus(String orderId, String status) {
+        Order newOrder = Order.findByOrderId(orderId);
+        newOrder.status = status;
+        newOrder.update();
+        return newOrder;
+
     }
+
        
 }
