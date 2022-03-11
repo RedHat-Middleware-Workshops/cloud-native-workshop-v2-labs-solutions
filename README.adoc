@@ -11,6 +11,8 @@ This repo can be used for reference to the code's solution than a magic script t
    e.g. $ sh scripts/deploy-solution-m1.sh user1
 ```
 
+OpenShift version - 4.10
+
 === Scripts for each Module Solution
 
 * Module 1 : sh scripts/deploy-solution-m1.sh {username}
