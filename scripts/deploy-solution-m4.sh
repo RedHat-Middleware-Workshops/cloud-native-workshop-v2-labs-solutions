@@ -54,7 +54,7 @@ oc annotate dc/catalog app.openshift.io/vcs-ref=ocp-4.7 --overwrite
 echo "Deployed Catalog service........"
 
 echo "Deploying Cart service........"
-oc new-app --as-deployment-config infinispan/server:12.0.0.Final-1 --name=datagrid-service -e USER=user -e PASS=pass
+oc new-app --as-deployment-config quay.io/openshiftlabs/ccn-infinispan:12.0.0.Final-1 --name=datagrid-service -e USER=user -e PASS=pass
 
 mvn clean package -DskipTests -f $PWD/m4/cart-service
 oc rollout status -w dc/cart
@@ -66,7 +66,7 @@ oc annotate dc/cart app.openshift.io/vcs-ref=ocp-4.7 --overwrite
 echo "Deployed Cart service........"
 
 echo "Deploying Order service........"
-oc new-app --as-deployment-config --docker-image mongo:4.0 --name=order-database
+oc new-app --as-deployment-config --docker-image quay.io/openshiftlabs/ccn-mongo:4.0 --name=order-database
 
 mvn clean package -DskipTests -f $PWD/m4/order-service
 oc rollout status -w dc/order
