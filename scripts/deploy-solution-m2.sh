@@ -20,7 +20,7 @@ sleep 30
 
 oc new-app --as-deployment-config -e POSTGRESQL_USER=inventory \
   -e POSTGRESQL_PASSWORD=mysecretpassword \
-  -e POSTGRESQL_DATABASE=inventory openshift/postgresql:latest \
+  -e POSTGRESQL_DATABASE=inventory openshift/postgresql:10-el8 \
   --name=inventory-database
 
 sed -i'' -e "s/userXX/${USERXX}/g" $PWD/m2/inventory/src/main/resources/application.properties
@@ -32,7 +32,7 @@ oc label dc/inventory-database app.openshift.io/runtime=postgresql --overwrite &
 oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite && \
 oc label dc/inventory-database app.kubernetes.io/part-of=inventory --overwrite && \
 oc annotate dc/inventory app.openshift.io/connects-to=inventory-database --overwrite && \
-oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.7 --overwrite
+oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.12 --overwrite
 
 echo "Deployed Inventory service........"
 
@@ -49,12 +49,12 @@ rm -rf $PWD/m2/catalog/src/main/resources/application-openshift.properties-e
 oc new-app --as-deployment-config -e POSTGRESQL_USER=catalog \
              -e POSTGRESQL_PASSWORD=mysecretpassword \
              -e POSTGRESQL_DATABASE=catalog \
-             openshift/postgresql:latest \
+             openshift/postgresql:10-el8 \
              --name=catalog-database
 
 mvn clean install spring-boot:repackage -DskipTests -f $PWD/m2/catalog
 
-oc new-build registry.access.redhat.com/ubi8/openjdk-11 --binary --name=catalog-springboot -l app=catalog-springboot
+oc new-build registry.access.redhat.com/ubi8/openjdk-17:1.14 --binary --name=catalog-springboot -l app=catalog-springboot
 
 sleep $DELAY
 
@@ -69,7 +69,7 @@ oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && 
 oc label dc/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m3-labs.git --overwrite && \
-oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.7 --overwrite
+oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.12 --overwrite
 echo "Deployed Catalog service........"
 
 echo "Deploying Coolstore DEV service........"
@@ -97,7 +97,7 @@ oc label dc/coolstore-postgresql app.kubernetes.io/part-of=coolstore --overwrite
 oc label dc/coolstore app.kubernetes.io/part-of=coolstore --overwrite && \
 oc annotate dc/coolstore app.openshift.io/connects-to=coolstore-postgresql --overwrite && \
 oc annotate dc/coolstore app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
-oc annotate dc/coolstore app.openshift.io/vcs-ref=ocp-4.7 --overwrite
+oc annotate dc/coolstore app.openshift.io/vcs-ref=ocp-4.12 --overwrite
 
 oc rollout status -w dc/coolstore -n $USERXX-coolstore-dev 
 echo "Deployed Coolstore DEV service........"
@@ -118,7 +118,7 @@ oc label dc/coolstore-prod-postgresql app.kubernetes.io/part-of=coolstore-prod -
 oc label dc/coolstore-prod app.kubernetes.io/part-of=coolstore-prod --overwrite && \
 oc annotate dc/coolstore-prod app.openshift.io/connects-to=coolstore-prod-postgresql --overwrite && \
 oc annotate dc/coolstore-prod app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
-oc annotate dc/coolstore-prod app.openshift.io/vcs-ref=ocp-4.7 --overwrite
+oc annotate dc/coolstore-prod app.openshift.io/vcs-ref=ocp-4.12 --overwrite
 
 oc new-app jenkins-ephemeral --as-deployment-config -p MEMORY_LIMIT=2Gi
 oc label dc/jenkins app.openshift.io/runtime=jenkins --overwrite

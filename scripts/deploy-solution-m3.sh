@@ -75,7 +75,7 @@ sleep 30
 
 oc new-app --as-deployment-config -e POSTGRESQL_USER=inventory \
   -e POSTGRESQL_PASSWORD=mysecretpassword \
-  -e POSTGRESQL_DATABASE=inventory openshift/postgresql:latest \
+  -e POSTGRESQL_DATABASE=inventory openshift/postgresql:10-el8 \
   --name=inventory-database
 
 mvn clean package -DskipTests -f $PWD/m3/inventory
@@ -84,7 +84,7 @@ oc label dc/inventory-database app.openshift.io/runtime=postgresql --overwrite &
 oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite && \
 oc label dc/inventory-database app.kubernetes.io/part-of=inventory --overwrite && \
 oc annotate dc/inventory app.openshift.io/connects-to=inventory-database --overwrite && \
-oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.7 --overwrite
+oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.12 --overwrite
 
 oc patch dc/inventory-database -n ${USERXX}-inventory --type='json' -p '[{"op":"add","path":"/spec/template/metadata/annotations", "value": {"sidecar.istio.io/inject": "'"true"'"}}]' && \
 oc rollout status -w dc/inventory-database -n ${USERXX}-inventory
@@ -112,12 +112,12 @@ rm -rf $PWD/m3/catalog/src/main/resources/application-openshift.properties-e
 oc new-app --as-deployment-config -e POSTGRESQL_USER=catalog \
              -e POSTGRESQL_PASSWORD=mysecretpassword \
              -e POSTGRESQL_DATABASE=catalog \
-             openshift/postgresql:latest \
+             openshift/postgresql:10-el8 \
              --name=catalog-database
 
 mvn clean install spring-boot:repackage -DskipTests -f $PWD/m3/catalog
 
-oc new-build registry.access.redhat.com/ubi8/openjdk-11 --binary --name=catalog-springboot -l app=catalog-springboot
+oc new-build registry.access.redhat.com/ubi8/openjdk-17:1.14 --binary --name=catalog-springboot -l app=catalog-springboot
 
 oc start-build catalog-springboot --from-file $PWD/m3/catalog/target/catalog-1.0.0-SNAPSHOT.jar --follow
 oc new-app catalog-springboot --as-deployment-config -e JAVA_OPTS_APPEND='-Dspring.profiles.active=openshift'
@@ -128,7 +128,7 @@ oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && 
 oc label dc/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m3-labs.git --overwrite && \
-oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.7 --overwrite
+oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.12 --overwrite
 
 oc patch dc/catalog-database -n ${USERXX}-catalog --type='json' -p '[{"op":"add","path":"/spec/template/metadata/annotations", "value": {"sidecar.istio.io/inject": "'"true"'"}}]' && \
 oc rollout status -w dc/catalog-database -n ${USERXX}-catalog
