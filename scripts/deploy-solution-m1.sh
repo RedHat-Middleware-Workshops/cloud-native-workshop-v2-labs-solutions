@@ -50,7 +50,7 @@ oc new-app --as-deployment-config -e POSTGRESQL_USER=catalog \
 
 mvn clean install spring-boot:repackage -DskipTests -f $PWD/m1/catalog
 
-oc new-build registry.access.redhat.com/ubi8/openjdk-17:1.14 --binary --name=catalog-springboot -l app=catalog-springboot
+oc new-build registry.access.redhat.com/ubi8/openjdk-17:latest --binary --name=catalog-springboot -l app=catalog-springboot
 
 sleep $DELAY
 
