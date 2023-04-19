@@ -27,8 +27,9 @@
     <description>Rest JDBC SpringBoot Coolstore Catalog App</description>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.release>17</maven.compiler.release>
         <spring-cloud.bom.version>2020.0.4</spring-cloud.bom.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <spring-boot.version>2.7.10</spring-boot.version>
