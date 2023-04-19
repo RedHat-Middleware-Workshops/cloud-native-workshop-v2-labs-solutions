@@ -29,6 +29,7 @@
     <properties>
        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.version>3.11.0</maven.compiler.version>
         <maven.compiler.release>17</maven.compiler.release>
         <spring-cloud.bom.version>2020.0.4</spring-cloud.bom.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -153,7 +154,14 @@
         </testResource>
         </testResources>
         <plugins>
-        <plugin>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven.compiler.version}</version>
+            <configuration>
+              <release>${maven.compiler.release.version}</release>
+            </configuration>
+          </plugin>
+          <plugin>            
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <version>${spring-boot.version}</version>
