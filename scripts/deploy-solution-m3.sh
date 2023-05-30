@@ -84,7 +84,7 @@ oc label dc/inventory-database app.openshift.io/runtime=postgresql --overwrite &
 oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite && \
 oc label dc/inventory-database app.kubernetes.io/part-of=inventory --overwrite && \
 oc annotate dc/inventory app.openshift.io/connects-to=inventory-database --overwrite && \
-oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.12 --overwrite
+oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.13 --overwrite
 
 oc patch dc/inventory-database -n ${USERXX}-inventory --type='json' -p '[{"op":"add","path":"/spec/template/metadata/annotations", "value": {"sidecar.istio.io/inject": "'"true"'"}}]' && \
 oc rollout status -w dc/inventory-database -n ${USERXX}-inventory
@@ -128,7 +128,7 @@ oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && 
 oc label dc/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m3-labs.git --overwrite && \
-oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.12 --overwrite
+oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.13 --overwrite
 
 oc patch dc/catalog-database -n ${USERXX}-catalog --type='json' -p '[{"op":"add","path":"/spec/template/metadata/annotations", "value": {"sidecar.istio.io/inject": "'"true"'"}}]' && \
 oc rollout status -w dc/catalog-database -n ${USERXX}-catalog
