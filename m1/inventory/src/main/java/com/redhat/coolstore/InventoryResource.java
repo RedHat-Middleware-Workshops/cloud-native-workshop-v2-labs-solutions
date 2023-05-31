@@ -3,6 +3,7 @@ package com.redhat.coolstore;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -29,7 +30,7 @@ public class InventoryResource {
 
     @GET
     @Path("/{itemId}")
-    public List<Inventory> getAvailability(@PathParam String itemId) {
+    public List<Inventory> getAvailability(@PathParam("itemId") String itemId) {
         return Inventory.<Inventory>streamAll()
         .filter(p -> p.itemId.equals(itemId))
         .collect(Collectors.toList());
