@@ -115,19 +115,17 @@ oc new-app --as-deployment-config -e POSTGRESQL_USER=catalog \
              openshift/postgresql:10-el8 \
              --name=catalog-database
 
-mvn clean install spring-boot:repackage -DskipTests -f $PWD/m3/catalog
+mvn clean install -Ddekorate.deploy=true -DskipTests -f $PROJECT_SOURCE/catalog
 
-oc new-build registry.access.redhat.com/ubi8/openjdk-17:1.14 --binary --name=catalog-springboot -l app=catalog-springboot
-
-oc start-build catalog-springboot --from-file $PWD/m3/catalog/target/catalog-1.0.0-SNAPSHOT.jar --follow
-oc new-app catalog-springboot --as-deployment-config -e JAVA_OPTS_APPEND='-Dspring.profiles.active=openshift'
+REPLACEURL=$(oc get route -n $USERXX-catalog catalog-springboot -o jsonpath="{.spec.host}")
+sed -i "s/REPLACEURL/${REPLACEURL}/g" $PROJECT_SOURCE/monolith/src/main/webapp/app/services/catalog.js
 
 oc label dc/catalog-database app.openshift.io/runtime=postgresql --overwrite && \
-oc label dc/catalog-springboot app.openshift.io/runtime=spring --overwrite && \
+oc label dc/catalog-springboot app.openshift.io/runtime=spring-boot --overwrite && \
 oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && \
 oc label dc/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
-oc annotate dc/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m3-labs.git --overwrite && \
+oc annotate dc/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.13 --overwrite
 
 oc patch dc/catalog-database -n ${USERXX}-catalog --type='json' -p '[{"op":"add","path":"/spec/template/metadata/annotations", "value": {"sidecar.istio.io/inject": "'"true"'"}}]' && \

@@ -40,17 +40,19 @@ oc new-app --as-deployment-config -e POSTGRESQL_USER=catalog \
              openshift/postgresql:10-el8 \
              --name=catalog-database
 
-mvn clean install spring-boot:repackage -DskipTests -f $PWD/m4/catalog-service
+mvn clean install -Ddekorate.deploy=true -DskipTests -f $PROJECT_SOURCE/catalog
 
-oc new-build registry.access.redhat.com/ubi8/openjdk-17:1.14 --binary --name=catalog -l app=catalog
-oc start-build catalog --from-file=$PWD/m4/catalog-service/target/catalog-1.0.0-SNAPSHOT.jar --follow
+REPLACEURL=$(oc get route -n $USERXX-catalog catalog-springboot -o jsonpath="{.spec.host}")
+sed -i "s/REPLACEURL/${REPLACEURL}/g" $PROJECT_SOURCE/monolith/src/main/webapp/app/services/catalog.js
 
-oc new-app catalog  --as-deployment-config -e JAVA_OPTS_APPEND='-Dspring.profiles.active=openshift' && oc expose service catalog && \
-oc label dc/catalog app.kubernetes.io/part-of=catalog app.openshift.io/runtime=rh-spring-boot --overwrite && \
-oc label dc/catalog-database app.kubernetes.io/part-of=catalog app.openshift.io/runtime=postgresql --overwrite && \
-oc annotate dc/catalog app.openshift.io/connects-to=inventory,catalog-database --overwrite && \
-oc annotate dc/catalog app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m4-labs.git --overwrite && \
-oc annotate dc/catalog app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc label dc/catalog-database app.openshift.io/runtime=postgresql --overwrite && \
+oc label dc/catalog-springboot app.openshift.io/runtime=spring-boot --overwrite && \
+oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && \
+oc label dc/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
+oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
+oc annotate dc/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
+oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+
 echo "Deployed Catalog service........"
 
 echo "Deploying Cart service........"
