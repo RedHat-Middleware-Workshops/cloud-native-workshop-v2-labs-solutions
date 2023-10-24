@@ -71,7 +71,7 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
-      <id>jboss-enterprise-maven-repository-ga</id>
+      <id>redhat</id>
       <url>https://maven.repository.redhat.com/ga/</url>
     </repository>
   </repositories>
@@ -83,7 +83,7 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
-      <id>jboss-enterprise-maven-repository-ga</id>
+      <id>redhat</id>
       <url>https://maven.repository.redhat.com/ga/</url>
     </pluginRepository>
   </pluginRepositories>
