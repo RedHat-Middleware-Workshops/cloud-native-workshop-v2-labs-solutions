@@ -28,7 +28,7 @@ oc label dc/inventory-database app.openshift.io/runtime=postgresql --overwrite &
 oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite && \
 oc label dc/inventory-database app.kubernetes.io/part-of=inventory --overwrite && \
 oc annotate dc/inventory app.openshift.io/connects-to=inventory-database --overwrite && \
-oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.14 --overwrite
 
 echo "Deployed Inventory service........"
 
@@ -59,7 +59,7 @@ oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && 
 oc label dc/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
-oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.14 --overwrite
 
 echo "Deployed Catalog service........"
 
@@ -88,7 +88,7 @@ oc label dc/coolstore-postgresql app.kubernetes.io/part-of=coolstore --overwrite
 oc label dc/coolstore app.kubernetes.io/part-of=coolstore --overwrite && \
 oc annotate dc/coolstore app.openshift.io/connects-to=coolstore-postgresql --overwrite && \
 oc annotate dc/coolstore app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
-oc annotate dc/coolstore app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/coolstore app.openshift.io/vcs-ref=ocp-4.14 --overwrite
 
 oc rollout status -w dc/coolstore -n $USERXX-coolstore-dev 
 

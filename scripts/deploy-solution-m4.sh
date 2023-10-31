@@ -1,4 +1,4 @@
-4.13#!/bin/bash
+4.14#!/bin/bash
 
 USERXX=$1
 
@@ -30,7 +30,7 @@ oc rollout status -w dc/inventory
 oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite && \
 oc label dc/inventory-database app.kubernetes.io/part-of=inventory app.openshift.io/runtime=postgresql --overwrite && \
 oc annotate dc/inventory app.openshift.io/connects-to=inventory-database --overwrite && \
-oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.14 --overwrite
 echo "Deployed Inventory service........"
 
 echo "Deploying Catalog service........"
@@ -51,7 +51,7 @@ oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && 
 oc label dc/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
-oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.14 --overwrite
 
 echo "Deployed Catalog service........"
 
@@ -64,7 +64,7 @@ oc rollout status -w dc/cart
 oc label dc/cart app.kubernetes.io/part-of=cart app.openshift.io/runtime=quarkus --overwrite && \
 oc label dc/datagrid-service app.kubernetes.io/part-of=cart app.openshift.io/runtime=datagrid --overwrite && \
 oc annotate dc/cart app.openshift.io/connects-to=catalog,datagrid-service --overwrite && \
-oc annotate dc/cart app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/cart app.openshift.io/vcs-ref=ocp-4.14 --overwrite
 echo "Deployed Cart service........"
 
 echo "Deploying Order service........"
@@ -76,7 +76,7 @@ oc rollout status -w dc/order
 oc label dc/order app.kubernetes.io/part-of=order --overwrite && \
 oc label dc/order-database app.kubernetes.io/part-of=order app.openshift.io/runtime=mongodb --overwrite && \
 oc annotate dc/order app.openshift.io/connects-to=order-database --overwrite && \
-oc annotate dc/order app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/order app.openshift.io/vcs-ref=ocp-4.14 --overwrite
 echo "Deployed Order service........"
 
 echo "Deploying UI service........"
@@ -85,7 +85,7 @@ npm run nodeshift && oc expose svc/coolstore-ui && \
 oc label dc/coolstore-ui app.kubernetes.io/part-of=coolstore --overwrite && \
 oc annotate dc/coolstore-ui app.openshift.io/connects-to=order-cart,catalog,inventory,order --overwrite && \
 oc annotate dc/coolstore-ui app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m4-labs.git --overwrite && \
-oc annotate dc/coolstore-ui app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/coolstore-ui app.openshift.io/vcs-ref=ocp-4.14 --overwrite
 cd ../../
 echo "Deployed UI service........"
 
@@ -169,7 +169,7 @@ mvn clean package -Pnative -DskipTests -Dquarkus.package.uber-jar=false -Dquarku
 oc label rev/payment-00001 app.openshift.io/runtime=quarkus --overwrite && \
 oc label dc/payment app.kubernetes.io/part-of=payment --overwrite && \
 oc annotate dc/payment app.openshift.io/connects-to=my-cluster --overwrite && \
-oc annotate dc/payment app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/payment app.openshift.io/vcs-ref=ocp-4.14 --overwrite
 
 cat <<EOF | oc apply -n $USERXX-cloudnativeapps  -f -
 apiVersion: sources.knative.dev/v1beta1
