@@ -17,3 +17,5 @@ This repo can be used for reference to the code's solution than a magic script t
 * Module 2 : sh scripts/deploy-solution-m2.sh {username}
 * Module 3 : sh scripts/deploy-solution-m3.sh {username}
 * Module 4 : sh scripts/deploy-solution-m4.sh {username}
+
+=== OpenShift version: v4.14
